@@ -8,7 +8,7 @@
     
             ...
             
-            HttpRouterHandler httpRouterHandler = new HttpRouterHandler();
+            HttpRouterHandler httpSchemeHandler = new HttpRouterHandler();
             Router.Builder builder = new Router.Builder()
                     .application(this)
                     .addRouterIndex(new MainRouterIndex()) 
@@ -16,8 +16,8 @@
     //                .addRouterIndex(new ModuleBRouterIndex())
     //                .addRouterIndex(new ModuleCRouterIndex())
     //              自定义处理Scheme
-                    .addSchemeHandler("http", httpRouterHandler)
-                    .addSchemeHandler("https", httpRouterHandler)
+                    .addSchemeHandler("http", httpSchemeHandler)
+                    .addSchemeHandler("https", httpSchemeHandler)
                     .routerUrlFilter(new RouterUrlFilter() {
                         @Override
                         public String filter(String url) {

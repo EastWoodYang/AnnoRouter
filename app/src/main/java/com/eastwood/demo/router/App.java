@@ -9,7 +9,7 @@ import com.eastwood.demo.router.api.IRouterAApi;
 import com.eastwood.demo.router.api.InnerRouterApi;
 import com.eastwood.demo.router.api.PassObjectRouterApi;
 import com.eastwood.demo.router.api.TestRouterApi;
-import com.eastwood.demo.router.handler.HttpRouterHandler;
+import com.eastwood.demo.router.handler.HttpSchemeHandler;
 
 public class App extends Application {
 
@@ -17,11 +17,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        HttpRouterHandler httpRouterHandler = new HttpRouterHandler();
         Router.Builder builder = new Router.Builder()
                 .application(this)
-//              添加各模块生成的RouterIndex
-//              自定义处理Scheme
                 .routerUrlFilter(new IRouterUrlFilter() {
                     @Override
                     public String filter(String url) {
@@ -43,8 +40,9 @@ public class App extends Application {
         Router.addRouterIndex(InnerRouterApi.class);
         Router.addRouterIndex(PassObjectRouterApi.class);
 
-        Router.addSchemeHandler("https", httpRouterHandler);
-        Router.addSchemeHandler("http", httpRouterHandler);
+        HttpSchemeHandler httpSchemeHandler = new HttpSchemeHandler();
+        Router.addSchemeHandler("https", httpSchemeHandler);
+        Router.addSchemeHandler("http", httpSchemeHandler);
     }
 
     @Override

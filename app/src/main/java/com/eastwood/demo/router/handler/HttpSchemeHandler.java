@@ -7,7 +7,7 @@ import android.net.Uri;
 import com.eastwood.common.router.ISchemeHandler;
 import com.eastwood.common.router.OnRouterResult;
 
-public class HttpRouterHandler implements ISchemeHandler {
+public class HttpSchemeHandler implements ISchemeHandler {
 
     @Override
     public void applyRouter(Context context, String url, OnRouterResult routerResult) {
