@@ -1,0 +1,31 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 11
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+}
+
+//apply from: 'http://android.yingyingwork.com/upload-with-source.gradle'
+//
+//uploadNexus({
+//    groupId = 'com.winwin.common'
+//    artifactId = 'router'
+//    version = '1.0.1-SNAPSHOT'
+//})
