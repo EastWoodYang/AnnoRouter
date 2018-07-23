@@ -4,7 +4,7 @@ A routing framework to assist with Android componentization. Use interfaces and 
 ## Get it
 AnnoAdapter is now available on JCentral.
 
-    implementation 'com.eastwood.common:anno-router:1.0.0'
+    implementation 'com.eastwood.common:anno-router:1.0.1'
 
 ## Usage
 

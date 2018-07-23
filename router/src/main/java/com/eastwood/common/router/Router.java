@@ -140,6 +140,14 @@ public class Router {
 
     public static void execute(String url, OnRouterResult routerResult) {
         final Context context = getActivityContextPossibly();
+        execute(context, url, routerResult);
+    }
+
+    public static void execute(Context context, String url) {
+        execute(context, url, null);
+    }
+
+    public static void execute(Context context, String url, OnRouterResult routerResult) {
         Router router = getRouterInstance();
         if (router.routerUrlFilter != null) {
             url = router.routerUrlFilter.filter(url);
@@ -230,9 +238,11 @@ public class Router {
                         if (routerInfo == null) return null;
 
                         OnRouterResult onRouterResult = null;
-                        for (Object object : args) {
-                            if (object instanceof OnRouterResult) {
-                                onRouterResult = (OnRouterResult) object;
+                        if(args != null && args.length > 0) {
+                            for (Object object : args) {
+                                if (object instanceof OnRouterResult) {
+                                    onRouterResult = (OnRouterResult) object;
+                                }
                             }
                         }
                         execute(routerInfo, onRouterResult);
