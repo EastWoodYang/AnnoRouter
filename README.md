@@ -1,5 +1,5 @@
 # AnnoRouter
-A routing framework to assist with Android Componentization. it's turns your HTTP API into a Java interface.
+A routing framework to assist with Android Componentization. it's turns your Router API into a Java interface.
 
 <img src='https://github.com/EastWoodYang/AnnoRouter/blob/master/picture/1.png'/>
 
@@ -218,6 +218,7 @@ e.g.
     
 ### Use Router Api To Jump
     
+    // The Router class generates an implementation of the RouterApi interface.
     RouterApi routerApi = Router.create(RouterApi .class);
     routerApi.jump("value");
      
