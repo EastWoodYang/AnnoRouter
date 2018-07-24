@@ -4,6 +4,6 @@ import android.content.Intent;
 
 public interface OnActivityResult extends OnRouterResult {
 
-    void onActivityResult(int resultCode, Intent data);
+    void onActivityResult(int requestCode, int resultCode, Intent data);
 
 }

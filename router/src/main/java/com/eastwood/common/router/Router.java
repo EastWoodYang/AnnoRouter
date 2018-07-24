@@ -154,7 +154,7 @@ public class Router {
         }
 
         if (!Utils.isURL(url)) {
-            Exception e = new IllegalArgumentException("Invalid URL: " + url);
+            Exception e = new IllegalArgumentException("Invalid url.");
             if (routerResult != null) {
                 routerResult.onFailure(e);
             }
@@ -174,7 +174,7 @@ public class Router {
             if (routerInfo != null) {
                 execute(routerInfo, routerResult);
             } else {
-                Exception e = new RuntimeException("Failure to execute " + url);
+                Exception e = new RuntimeException("Failure to execute.");
                 if (routerResult != null) {
                     routerResult.onFailure(e);
                 }
@@ -220,7 +220,7 @@ public class Router {
             }
             IExceptionHandler exceptionHandler = getRouterInstance().exceptionHandler;
             if (exceptionHandler != null) {
-                exceptionHandler.handler("Failure to execute " + routerInfo.originUrl, e);
+                exceptionHandler.handler(routerInfo.originUrl, e);
             } else {
                 throw new RuntimeException(e);
             }
@@ -283,7 +283,7 @@ public class Router {
         if (context instanceof Activity) {
             Activity activity = (Activity) context;
             if (routerResult instanceof OnActivityResult) {
-                ActivityResultUtil.startForResult(activity, intent, (OnActivityResult) routerResult);
+                ActivityResultUtil.startForResult(activity, intent, routerInfo.requestCode, (OnActivityResult) routerResult);
             } else {
                 activity.startActivityForResult(intent, routerInfo.requestCode);
             }

@@ -11,9 +11,9 @@ class ActivityResultUtil {
 
     private static final String TAG = "OnResultInnerFragment";
 
-    public static void startForResult(Activity activity, Intent intent, OnActivityResult callback) {
+    public static void startForResult(Activity activity, Intent intent, int requestCode, OnActivityResult callback) {
         InnerFragment innerFragment = getFragment(activity);
-        innerFragment.startForResult(intent, callback);
+        innerFragment.startForResult(intent, requestCode, callback);
     }
 
     private static InnerFragment getFragment(Activity activity) {
@@ -40,9 +40,9 @@ class ActivityResultUtil {
             setRetainInstance(true);
         }
 
-        public void startForResult(Intent intent,OnActivityResult callback) {
-            mCallbacks.put(callback.hashCode(), callback);
-            startActivityForResult(intent, callback.hashCode());
+        public void startForResult(Intent intent, int requestCode, OnActivityResult callback) {
+            mCallbacks.put(requestCode, callback);
+            startActivityForResult(intent, requestCode);
         }
 
         @Override
@@ -51,7 +51,7 @@ class ActivityResultUtil {
             OnActivityResult callback = mCallbacks.get(requestCode);
             if (callback != null) {
                 mCallbacks.remove(requestCode);
-                callback.onActivityResult(resultCode, data);
+                callback.onActivityResult(requestCode, resultCode, data);
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.eastwood.demo.router;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import com.eastwood.common.router.IExceptionHandler;
 import com.eastwood.common.router.Router;
@@ -28,8 +29,8 @@ public class App extends Application {
                 })
                 .exceptionHandler(new IExceptionHandler() {
                     @Override
-                    public void handler(String s, Exception e) {
-                        // 自定义处理异常
+                    public void handler(String url, Exception e) {
+                        Toast.makeText(App.this, url + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
         Router.init(builder);

@@ -12,7 +12,6 @@ import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.eastwood.common.router.OnActivityResult;
 import com.eastwood.common.router.Router;
 import com.eastwood.demo.router.api.PassObjectRouterApi;
 
@@ -184,22 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    passObjectRouterApi.startActivity(serializableObject);
                 }
             } else {
-                Router.execute(getUrl(), new OnActivityResult() {
-                    @Override
-                    public void onActivityResult(int resultCode, Intent data) {
-
-                    }
-
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onFailure(Exception e) {
-
-                    }
-                });//"winA://pass.winwin.com/basedVariableObject?byte=1&int=1&short=1&long=1&float=1&double=1&boolean=true&char=a"); // getUrl()
+                Router.execute(getUrl());//"winA://pass.winwin.com/basedVariableObject?byte=1&int=1&short=1&long=1&float=1&double=1&boolean=true&char=a"); // getUrl()
             }
         }
     }

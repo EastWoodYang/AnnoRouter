@@ -15,7 +15,7 @@ public class PreTask3 implements IRouterTask {
     public void execute(Context context, RouterInfo routerInfo, final OnTaskResult onTaskResult) {
         Router.execute("test://test.winwin.com/temp", new OnActivityResult() {
             @Override
-            public void onActivityResult(int resultCode, Intent data) {
+            public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 onTaskResult.success();
             }
 

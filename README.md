@@ -8,7 +8,7 @@ Use interfaces and annotations to define route jump info.
 ## Get it
 AnnoAdapter is now available on JCentral.
 
-    implementation 'com.eastwood.common:anno-router:1.0.1'
+    implementation 'com.eastwood.common:anno-router:1.0.2'
 
 ## Usage
 
@@ -38,7 +38,7 @@ AnnoAdapter is now available on JCentral.
     new Router.Builder()
         .exceptionHandler(new IExceptionHandler() {
             @Override
-            public void handler(String message, Exception e) {
+            public void handler(String url, Exception e) {
                 
             }
         })
