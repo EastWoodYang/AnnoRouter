@@ -1,9 +1,7 @@
 # AnnoRouter
-A routing framework to assist with Android Componentization. 
+A routing framework to assist with Android Componentization. it's turns your HTTP API into a Java interface.
 
 <img src='https://github.com/EastWoodYang/AnnoRouter/blob/master/picture/1.png'/>
-
-Use interfaces and annotations to define route jump info.
 
 ## Get it
 AnnoAdapter is now available on JCentral.
