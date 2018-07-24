@@ -54,7 +54,7 @@ use `@RouterScheme`, `@RouterHost`, `@Path` and `@Param` to define a router url.
          
         @Path("path")
         ...
-        void jump(@Param("name") int id);
+        void jump(@Param("paramName") int paramValue);
             
     }
      
@@ -64,7 +64,7 @@ use `@RouterScheme`, `@RouterHost`, `@Path` and `@Param` to define a router url.
         @RouterHost("host")
         @Path("path")
         ...
-        void jump(@Param("name") int id);
+        void jump(@Param("paramName") int paramValue);
             
     }
 
@@ -78,15 +78,19 @@ e.g.
          
         @Path("path")
         ...
-        void jumpToActivity(@Param("name") String name);
+        void jumpToActivity1(@Param("param1") String param1);
         
         
         @Strict
         @Path("path")
         ...
-        void jumpToActivity(@Param("id") int id);
+        void jumpToActivity2(@Param("param1") String param1, @Param("param2") int param2);
             
     }
+  
+* `scheme://host/path?param1=a` will match method `jumpToActivity1` 
+* `scheme://host/path?param1=a&param2=1` will match method `jumpToActivity2`
+* `scheme://host/path?param1=a&param2=1&param3=1` will match method `jumpToActivity1`, and `param2=1&param3=1` will be ignore.
 
 **Do some verification or preparation tasks**
 
@@ -188,7 +192,7 @@ e.g.
 
 ### Add Router Api
 
-    Router.addRouterIndex(LoginRouterApi.class);
+    Router.addRouterIndex(RouterApi.class);
     
 ### Add custom scheme handler
 
