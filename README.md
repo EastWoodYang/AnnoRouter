@@ -1,5 +1,8 @@
 # AnnoRouter
-A routing framework to assist with Android componentization. Use interfaces and annotations to define route jump info.
+A routing framework to assist with Android Componentization. 
+
+<img src='https://github.com/EastWoodYang/AnnoRouter/blob/master/picture/1.png'/>
+Use interfaces and annotations to define route jump info.
 
 ## Get it
 AnnoAdapter is now available on JCentral.
@@ -12,6 +15,8 @@ AnnoAdapter is now available on JCentral.
 
     Router.Builder builder = new Router.Builder()
             .application(this)
+            ...
+           
     Router.init(builder);
 
 #### Define A Router Api
@@ -22,10 +27,10 @@ AnnoAdapter is now available on JCentral.
      
         @Path("path")
         @Activity(RouterAActivity.class)
+        ...
         void startAActivity(@Param("param") String param);
         
         ...
-        
     }
 
 #### Add Router Api
@@ -34,12 +39,15 @@ AnnoAdapter is now available on JCentral.
     
 #### Use Router Api To Jump
 
-    Router.execute("scheme://host/path?param=1")
-     
-    // OR
+    
     
     AppRouterApi appRouterApi = Router.create(AppRouterApi.class);
     appRouterApi.startAActivity("1");
+     
+    // or use url instead.
+    Router.execute("scheme://host/path?param=1")
+         
+        
 
 ## Detail
 
