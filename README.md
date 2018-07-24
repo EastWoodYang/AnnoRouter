@@ -3,6 +3,8 @@ A routing framework to assist with Android Componentization. it's turns your Rou
 
 <img src='https://github.com/EastWoodYang/AnnoRouter/blob/master/picture/1.png'/>
 
+Use annotations to describe the Router jump.
+
 ## Get it
 AnnoAdapter is now available on JCentral.
 
