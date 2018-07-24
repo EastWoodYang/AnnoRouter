@@ -11,12 +11,12 @@ import com.eastwood.common.router.OnTaskResult;
 public class PreTask2 implements IRouterTask {
 
     @Override
-    public void execute(Context context, RouterInfo routerInfo, final OnTaskResult taskCallback) {
+    public void execute(Context context, RouterInfo routerInfo, final OnTaskResult onTaskResult) {
         Toast.makeText(context, "execute task2, will take 2 seconds", Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                taskCallback.success();
+                onTaskResult.success();
             }
         }, 2000);
     }

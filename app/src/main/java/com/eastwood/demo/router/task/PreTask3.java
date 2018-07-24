@@ -12,11 +12,11 @@ import com.eastwood.common.router.OnTaskResult;
 public class PreTask3 implements IRouterTask {
 
     @Override
-    public void execute(Context context, RouterInfo routerInfo, final OnTaskResult taskCallback) {
+    public void execute(Context context, RouterInfo routerInfo, final OnTaskResult onTaskResult) {
         Router.execute("test://test.winwin.com/temp", new OnActivityResult() {
             @Override
             public void onActivityResult(int resultCode, Intent data) {
-                taskCallback.success();
+                onTaskResult.success();
             }
 
             @Override
