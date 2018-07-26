@@ -25,15 +25,17 @@ class ActivityLifecycle implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        Router.referenceCurrentActivity(activity);
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
+        Router.referenceCurrentActivity(activity);
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        Router.onActivityResumed(activity);
+        Router.referenceCurrentActivity(activity);
     }
 
     @Override

@@ -172,7 +172,7 @@ public class Router {
         } else {
             InnerRouterInfo routerInfo = Utils.getRouterInfo(url);
             if (routerInfo != null) {
-                execute(routerInfo, routerResult);
+                execute(context, routerInfo, routerResult);
             } else {
                 Exception e = new RuntimeException("Failure to execute.");
                 if (routerResult != null) {
@@ -185,12 +185,12 @@ public class Router {
         }
     }
 
-    private static void execute(final InnerRouterInfo routerInfo, final OnRouterResult routerResult) {
-        final Context context = getActivityContextPossibly();
+    private static void execute(Context context, final InnerRouterInfo routerInfo, final OnRouterResult routerResult) {
+        final Context contextPossibly = context != null ? context : getActivityContextPossibly();
         try {
-            final TaskManager taskManager = TaskManager.getTaskList(context, routerInfo);
+            final TaskManager taskManager = TaskManager.getTaskList(contextPossibly, routerInfo);
             if (taskManager == null) {
-                startRouter(context, routerInfo, routerResult);
+                startRouter(contextPossibly, routerInfo, routerResult);
                 return;
             }
             taskManager.start(new OnTaskResult() {
@@ -198,7 +198,7 @@ public class Router {
                 @Override
                 public void success() {
                     try {
-                        startRouter(context, routerInfo, routerResult);
+                        startRouter(contextPossibly, routerInfo, routerResult);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -238,14 +238,18 @@ public class Router {
                         if (routerInfo == null) return null;
 
                         OnRouterResult onRouterResult = null;
-                        if(args != null && args.length > 0) {
+                        Context context = null;
+                        if (args != null && args.length > 0) {
                             for (Object object : args) {
                                 if (object instanceof OnRouterResult) {
                                     onRouterResult = (OnRouterResult) object;
+                                } else if (object instanceof Context) {
+                                    context = (Context) object;
                                 }
                             }
                         }
-                        execute(routerInfo, onRouterResult);
+
+                        execute(context, routerInfo, onRouterResult);
                         return null;
                     }
                 });
@@ -312,8 +316,10 @@ public class Router {
         return activity;
     }
 
-    static void onActivityResumed(Activity activity) {
-        sCurrentActivity = new WeakReference<>(activity);
+    static void referenceCurrentActivity(Activity activity) {
+        if (sCurrentActivity == null || sCurrentActivity.get() != activity) {
+            sCurrentActivity = new WeakReference<>(activity);
+        }
     }
 
     public static class Builder {
