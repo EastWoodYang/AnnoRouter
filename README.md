@@ -1,5 +1,5 @@
 # AnnoRouter
-A routing framework to assist with Android Componentization. it's turns your routing API into a Java interface.
+A routing framework to assist with Android Componentization. it's turns your route API into a Java interface.
 
 <img src='https://github.com/EastWoodYang/AnnoRouter/blob/master/picture/1.png'/>
 
@@ -46,7 +46,7 @@ AnnoAdapter is now available on JCentral.
 
 ### Define Route Api
 
-use `@RouterScheme`, `@RouterHost`, `@Path` and `@Param` to define a routing url.
+use `@RouterScheme`, `@RouterHost`, `@Path` and `@Param` to define a route url.
 
     @RouterScheme("scheme")
     @RouterHost("host")
