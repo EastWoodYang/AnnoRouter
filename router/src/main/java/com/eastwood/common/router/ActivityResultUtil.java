@@ -5,15 +5,28 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.SparseArray;
 
 class ActivityResultUtil {
 
     private static final String TAG = "OnResultInnerFragment";
 
-    public static void startForResult(Activity activity, Intent intent, int requestCode, OnActivityResult callback) {
-        InnerFragment innerFragment = getFragment(activity);
-        innerFragment.startForResult(intent, requestCode, callback);
+    public static void startForResult(final Activity activity, final Intent intent, final int requestCode, final OnActivityResult callback) {
+        if (Looper.getMainLooper() != Looper.myLooper()) {
+            MainHandler mainHandler = new MainHandler(Looper.getMainLooper());
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    InnerFragment innerFragment = getFragment(activity);
+                    innerFragment.startForResult(intent, requestCode, callback);
+                }
+            });
+        } else {
+            InnerFragment innerFragment = getFragment(activity);
+            innerFragment.startForResult(intent, requestCode, callback);
+        }
     }
 
     private static InnerFragment getFragment(Activity activity) {
@@ -54,5 +67,13 @@ class ActivityResultUtil {
                 callback.onActivityResult(requestCode, resultCode, data);
             }
         }
+    }
+
+    private static class MainHandler extends Handler {
+
+        MainHandler(Looper looper) {
+            super(looper);
+        }
+
     }
 }

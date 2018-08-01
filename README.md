@@ -8,7 +8,7 @@ Use annotations to define route jumps.
 ## Get it
 AnnoAdapter is now available on JCentral.
 
-    implementation 'com.eastwood.common:anno-router:1.0.3'
+    implementation 'com.eastwood.common:anno-router:1.0.4'
 
 ## Usage
 
