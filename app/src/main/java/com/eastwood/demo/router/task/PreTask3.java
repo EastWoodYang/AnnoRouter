@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import com.eastwood.common.router.Router;
 import com.eastwood.common.router.RouterInfo;
-import com.eastwood.common.router.OnActivityResult;
+import com.eastwood.demo.router.OnActivityResult;
 import com.eastwood.common.router.IRouterTask;
 import com.eastwood.common.router.OnTaskResult;
 

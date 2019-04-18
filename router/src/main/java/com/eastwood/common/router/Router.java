@@ -27,6 +27,8 @@ public class Router {
     private SparseArray<ISchemeHandler> schemeHandlerMap;
     protected SparseArray<Class> routerIndexMap;
 
+    private IActivityHandler activityHandler;
+
     private static Router routerInstance;
 
     private static WeakReference<Activity> sCurrentActivity;
@@ -46,9 +48,10 @@ public class Router {
 
     public static void init(Builder builder) {
         Router router = getRouterInstance();
+        router.application = builder.application;
         router.exceptionHandler = builder.exceptionHandler;
         router.routerUrlFilter = builder.routerUrlFilter;
-        router.application = builder.application;
+        router.activityHandler = builder.activityHandler;
 
         router.schemeHandlerMap = new SparseArray<>();
         router.routerIndexMap = new SparseArray<>();
@@ -110,7 +113,7 @@ public class Router {
             }
 
             int key = url.toLowerCase().hashCode();
-            if(router.routerIndexMap.get(key) == null) {
+            if (router.routerIndexMap.get(key) == null) {
                 router.routerIndexMap.put(key, routerIndexClass);
             } else {
                 RuntimeException exception = new RuntimeException("router url [" + url + "] is already exist.");
@@ -269,7 +272,7 @@ public class Router {
         }
     }
 
-    private static void applyRouter(Context context, InnerRouterInfo routerInfo, OnRouterResult routerResult)  throws Exception {
+    private static void applyRouter(Context context, InnerRouterInfo routerInfo, OnRouterResult routerResult) throws Exception {
 
         Intent intent = new Intent();
         intent.setComponent(new ComponentName(context, routerInfo.activity));
@@ -284,25 +287,30 @@ public class Router {
         }
         ParamHelper.putIntent(bundle, routerInfo);
         intent.putExtras(bundle);
-        if (context instanceof Activity) {
-            Activity activity = (Activity) context;
-            if (routerResult instanceof OnActivityResult) {
-                ActivityResultUtil.startForResult(activity, intent, routerInfo.requestCode, (OnActivityResult) routerResult);
-            } else {
-                activity.startActivityForResult(intent, routerInfo.requestCode);
-            }
 
+        Router router = getRouterInstance();
+        if (router.activityHandler != null) {
+            IActivityTransition activityTransition = null;
             if (routerInfo.transition != null) {
-                IActivityTransition routerTransition = Utils.inflectClass(routerInfo.transition);
-                if (routerTransition != null) {
-                    activity.overridePendingTransition(routerTransition.enterAnim(), routerTransition.exitAnim());
-                }
+                activityTransition = Utils.inflectClass(routerInfo.transition);
             }
+            router.activityHandler.startActivity(context, intent, routerInfo.requestCode, activityTransition, routerResult);
         } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
+            if (context instanceof Activity) {
+                Activity activity = (Activity) context;
+                activity.startActivityForResult(intent, routerInfo.requestCode);
+                if (routerInfo.transition != null) {
+                    IActivityTransition routerTransition = Utils.inflectClass(routerInfo.transition);
+                    if (routerTransition != null) {
+                        activity.overridePendingTransition(routerTransition.enterAnim(), routerTransition.exitAnim());
+                    }
+                }
+            } else {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+            if (routerResult != null) routerResult.onSuccess();
         }
-        if (routerResult != null) routerResult.onSuccess();
     }
 
     private static Context getActivityContextPossibly() {
@@ -327,6 +335,7 @@ public class Router {
         Application application;
         IExceptionHandler exceptionHandler;
         IRouterUrlFilter routerUrlFilter;
+        IActivityHandler activityHandler;
 
         public Builder application(Application application) {
             this.application = application;
@@ -340,6 +349,11 @@ public class Router {
 
         public Builder routerUrlFilter(IRouterUrlFilter routerUrlFilter) {
             this.routerUrlFilter = routerUrlFilter;
+            return this;
+        }
+
+        public Builder activityHandler(IActivityHandler activityHandler) {
+            this.activityHandler = activityHandler;
             return this;
         }
 

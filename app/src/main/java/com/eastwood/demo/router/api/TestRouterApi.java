@@ -9,7 +9,7 @@ import com.eastwood.common.router.annotation.Path;
 import com.eastwood.common.router.annotation.RouterHost;
 import com.eastwood.common.router.annotation.RouterScheme;
 import com.eastwood.common.router.annotation.Strict;
-import com.eastwood.common.router.OnActivityResult;
+import com.eastwood.demo.router.OnActivityResult;
 import com.eastwood.demo.router.RouterAActivity;
 import com.eastwood.demo.router.TempActivity;
 

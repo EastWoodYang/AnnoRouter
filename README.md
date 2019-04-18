@@ -44,6 +44,17 @@ AnnoAdapter is now available on JCentral.
         })
         ...
 
+**Start Activity handler**
+
+    new Router.Builder()
+        .activityHandler(new IActivityHandler() {
+            @Override
+            public void startActivity(Context context, Intent intent, int requestCode, IActivityTransition activityTransition, OnRouterResult routerResult) {
+
+            }
+        })
+        ...
+
 ### Define Route Api
 
 use `@RouterScheme`, `@RouterHost`, `@Path` and `@Param` to define a route url.
@@ -266,6 +277,9 @@ e.g.
     Router.execute("app://usercenter/login?mobile=0123456789", onActivityResult);
     // or
     Router.create(LoginRouterApi.class).jumpToLogin("0123456789", onActivityResult);
+
+
+**#more detail see demo.**
 
 
 
