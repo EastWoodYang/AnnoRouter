@@ -281,7 +281,8 @@ e.g.
 
 **#more detail see demo.**
 
-
+## Question or Idea
+有问题或想法可以直接加我微信: EastWoodYang
 
 ## License
 
